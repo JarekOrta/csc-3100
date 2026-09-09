@@ -115,3 +115,14 @@ const addUser = (user) => {
   users["users_list"].push(user);
   return user;
 };
+
+
+/*
+curl -X POST http://localhost:8000/users \
+-H "Content-Type: application/json" \
+-d '{"id":"qwe123","job":"Zookeeper","name":"Cindy"}'
+
+ 
+curl -X DELETE http://localhost:8000/users/qwe123
+
+*/
