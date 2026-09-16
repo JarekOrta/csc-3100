@@ -103,7 +103,7 @@ app.delete("/users/:id", (req, res) => {
         res.status(404).send("resource not found.");
     }
     else{
-        res.send(deletedUser);
+        res.status(204).send();
     }});
 
 app.listen(port, () => {
@@ -133,5 +133,6 @@ curl -X POST http://localhost:8000/users \
 
  
 curl -X DELETE http://localhost:8000/users/qwe123
+
 
 */

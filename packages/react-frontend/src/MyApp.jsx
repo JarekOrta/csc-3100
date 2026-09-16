@@ -18,6 +18,14 @@ function MyApp() {
         console.log(error);});
       }, []);
 
+  function deleteUser(id) {
+    return fetch(`http://localhost:8000/users/${id}`, {
+    method: "DELETE",
+  });
+}
+  
+
+
   function postUser(person) {
     return fetch("http://localhost:8000/users", {
       method: "POST",
@@ -30,13 +38,26 @@ function MyApp() {
   
 
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
-    });
-    setCharacters(updated);
-  }
+    const id = characters[index].id;
 
-function updateList(person){
+    deleteUser(id)
+      .then((response) => {
+        if (response.status === 204) {
+          const updated = characters.filter((characters, i) => {
+            return i !== index;
+          });
+          setCharacters(updated);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
+
+
+
+  function updateList(person){
   postUser(person)
     .then((response) => {
       if (response.status !== 201) {
