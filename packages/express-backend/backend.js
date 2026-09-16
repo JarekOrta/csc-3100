@@ -51,6 +51,11 @@ const findUserByNameAndJob = (name, job) => {
 const findUserById = (id) => 
     users["users_list"].find((user) => user["id"] === id);
 
+function generateId(){
+  return Math.random().toString(36).slice(2,10);} 
+  //.tostring converts number to base 36 string, using letters and numbers
+  //.slice removes the first 2 chars, and keeps rest 
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -83,9 +88,11 @@ app.get("/users/:id", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  const userToAdd = req.body;
-  addUser(userToAdd);
-  res.send();
+  const userToAdd = {...req.body, id: generateId(),
+};
+
+const newUser = addUser(userToAdd);
+res.status(201).send(newUser);
 });
 
 app.delete("/users/:id", (req, res) => {

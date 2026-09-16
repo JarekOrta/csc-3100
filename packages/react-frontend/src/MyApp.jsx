@@ -38,13 +38,20 @@ function MyApp() {
 
 function updateList(person){
   postUser(person)
-    .then(() => {
-      setCharacters([...characters, person]);
+    .then((response) => {
+      if (response.status !== 201) {
+        throw new Error("user was not created");
+      }
+      return response.json();
+    })
+    .then((newUser) => {
+      setCharacters([...characters, newUser]);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(eror);
     });
-}
+  }
+      
 
   return (
   <div className="container">
