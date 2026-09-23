@@ -52,7 +52,7 @@ const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
 
 function generateId(){
-  return Math.random().toString(36).slice(2,10);} 
+  return Math.random().toString(36).slice(2,8);} 
   //.tostring converts number to base 36 string, using letters and numbers
   //.slice removes the first 2 chars, and keeps rest 
 
