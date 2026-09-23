@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
 import userService from "./services/user-service.js";
-
-const app = express();
-const port = 8000;
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -13,6 +12,9 @@ mongoose.set("debug", true);
 mongoose
   .connect(MONGO_CONNECTION_STRING + "users") // connect to Db "users"
   .catch((error) => console.log(error));
+
+const app = express();
+const port = 8000;
 
 app.use(cors());
 app.use(express.json());
