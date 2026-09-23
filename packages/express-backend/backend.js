@@ -5,6 +5,15 @@ import userService from "./services/user-service.js";
 const app = express();
 const port = 8000;
 
+dotenv.config();
+
+const { MONGO_CONNECTION_STRING } = process.env;
+
+mongoose.set("debug", true);
+mongoose
+  .connect(MONGO_CONNECTION_STRING + "users") // connect to Db "users"
+  .catch((error) => console.log(error));
+
 app.use(cors());
 app.use(express.json());
 
