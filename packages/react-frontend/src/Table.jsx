@@ -18,7 +18,7 @@ function TableBody(props) {
   const rows = props.characterData.map((row, index) => {
     return (
       <tr key={index}>
-        <td>{row.id}</td>
+        <td>{row._id}</td>
         <td>{row.name}</td>
         <td>{row.job}</td>
         <td>
@@ -26,14 +26,9 @@ function TableBody(props) {
         </td>
       </tr>
     );
-  }
-  );
-  return (
-    <tbody>
-      {rows}
-    </tbody>);
+  });
+  return <tbody>{rows}</tbody>;
 }
-
 
 function Table(props) {
   return (
@@ -41,7 +36,8 @@ function Table(props) {
       <TableHeader />
       <TableBody
         characterData={props.characterData}
-        removeCharacter={props.removeCharacter} />
+        removeCharacter={props.removeCharacter}
+      />
     </table>
   );
 }

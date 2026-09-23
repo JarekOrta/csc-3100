@@ -5,7 +5,7 @@ import Form from "./Form";
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);
-    
+
   function fetchUsers() {
     return fetch("http://localhost:8000/users");
   }
@@ -15,16 +15,15 @@ function MyApp() {
       .then((res) => res.json())
       .then((json) => setCharacters(json["users_list"]))
       .catch((error) => {
-        console.log(error);});
-      }, []);
+        console.log(error);
+      });
+  }, []);
 
   function deleteUser(id) {
     return fetch(`http://localhost:8000/users/${id}`, {
-    method: "DELETE",
-  });
-}
-  
-
+      method: "DELETE",
+    });
+  }
 
   function postUser(person) {
     return fetch("http://localhost:8000/users", {
@@ -35,14 +34,13 @@ function MyApp() {
       body: JSON.stringify(person),
     });
   }
-  
 
   function removeOneCharacter(index) {
-    const id = characters[index].id;
+    const id = characters[index]._id;
 
     deleteUser(id)
       .then((response) => {
-        if (response.status === 204) {
+        if (response.status === 200) {
           const updated = characters.filter((characters, i) => {
             return i !== index;
           });
@@ -52,36 +50,30 @@ function MyApp() {
       .catch((error) => {
         console.log(error);
       });
-    }
-
-
-
-
-  function updateList(person){
-  postUser(person)
-    .then((response) => {
-      if (response.status !== 201) {
-        throw new Error("user was not created");
-      }
-      return response.json();
-    })
-    .then((newUser) => {
-      setCharacters([...characters, newUser]);
-    })
-    .catch((error) => {
-      console.log(eror);
-    });
   }
-      
+
+  function updateList(person) {
+    postUser(person)
+      .then((response) => {
+        if (response.status !== 201) {
+          throw new Error("user was not created");
+        }
+        return response.json();
+      })
+      .then((newUser) => {
+        setCharacters([...characters, newUser]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
-  <div className="container">
-    <Table characterData={characters} removeCharacter={removeOneCharacter} />
-  <Form handleSubmit={updateList} />
-  </div>
-);
+    <div className="container">
+      <Table characterData={characters} removeCharacter={removeOneCharacter} />
+      <Form handleSubmit={updateList} />
+    </div>
+  );
 }
 
-
 export default MyApp;
-
